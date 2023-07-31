@@ -1,15 +1,14 @@
 using Domain;
 
-namespace Persistence
+namespace Persistence;
+
+public class Seed
 {
-
-    public class Seed
+    public static async Task SeedData(DataContext context)
     {
-        public static async Task SeedData(DataContext context)
-        {
-            if (context.Activities.Any()) return;
+        if (context.Activities.Any()) return;
 
-            var activities = new List<Activity>
+        var activities = new List<Activity>
             {
                 new Activity
                 {
@@ -103,8 +102,7 @@ namespace Persistence
                 }
             };
 
-            await context.Activities.AddRangeAsync(activities);
-            await context.SaveChangesAsync();
-        }
+        await context.Activities.AddRangeAsync(activities);
+        await context.SaveChangesAsync();
     }
 }
