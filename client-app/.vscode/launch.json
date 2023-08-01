@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-          "type": "pwa-chrome",
+          "name": "Chrome",
+          "type": "chrome",
           "request": "launch",
-          "name": "Launch Chrome against localhost",
-          "url": "http://localhost:3000",
-
-          "webRoot": "${workspaceFolder}"
+          "url": "http://localhost:3000", //Change to the create-react-app default 3000
+          "webRoot": "${workspaceRoot}/src",
+          "preLaunchTask": "npm: start"
         }
     ]
 }
