@@ -24,7 +24,7 @@ export const ActivityDashboard = (
             openForm: Function,
             closeForm: () => void,
             createOrEdit: Function,
-            deleteActivity:Function
+            deleteActivity: Function
         }
 ) => {
     return (

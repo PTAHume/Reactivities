@@ -27,7 +27,7 @@ export const ActivityList = (
                                 <Button onClick={() => deleteActivity(activity.id)}
                                     floated='right' content='Delete' color='red' />
                                 <Label basic content={activity.category} />
-                                
+
                             </Item.Extra>
                         </Item.Content>
                     </Item>
