@@ -13,7 +13,8 @@ export const ActivityDashboard = (
         openForm,
         closeForm,
         createOrEdit,
-        deleteActivity
+        deleteActivity,
+        submitting
     }:
         {
             activities: Activity[],
@@ -24,7 +25,8 @@ export const ActivityDashboard = (
             openForm: Function,
             closeForm: () => void,
             createOrEdit: Function,
-            deleteActivity: Function
+            deleteActivity: Function,
+            submitting:boolean
         }
 ) => {
     return (
@@ -34,6 +36,7 @@ export const ActivityDashboard = (
                     activities={activities}
                     selectActivity={selectActivity}
                     deleteActivity={deleteActivity}
+                    submitting={submitting}
                 />
             </Grid.Column>
             <Grid.Column width='6'>
@@ -48,6 +51,7 @@ export const ActivityDashboard = (
                         activity={selectedActivity}
                         closeForm={closeForm}
                         createOrEdit={createOrEdit}
+                        submitting={submitting}
                     />}
             </Grid.Column>
         </Grid>

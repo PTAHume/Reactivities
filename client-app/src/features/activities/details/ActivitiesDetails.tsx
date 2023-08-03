@@ -2,7 +2,8 @@ import { Button, Card, Image } from "semantic-ui-react"
 import { Activity } from "../../../app/modules/Activity"
 
 export const ActivityDetails = (
-    { activity,
+    {
+        activity,
         cancelSelectedActivity,
         openForm
     }:

@@ -6,12 +6,14 @@ export const ActivityForm = (
     {
         closeForm,
         activity: selectedActivity,
-        createOrEdit
+        createOrEdit,
+        submitting
     }:
         {
             closeForm: () => void,
             activity: Activity | undefined,
             createOrEdit: Function,
+            submitting: boolean
         }
 ) => {
     const initialState = selectedActivity ?? {
@@ -35,19 +37,37 @@ export const ActivityForm = (
         <Segment clearing>
             <Form onSubmit={handleSubmit} autoComplete='off'>
                 <Form.Input
-                    value={activity.title} name='title' onChange={handleInputChange} placeholder="Title" />
+                    value={activity.title}
+                    name='title'
+                    onChange={handleInputChange}
+                    placeholder="Title" />
                 <Form.TextArea
-                    value={activity.description} name='description' onChange={handleInputChange}
+                    value={activity.description}
+                    name='description'
+                    onChange={handleInputChange}
                     placeholder="Description" />
                 <Form.Input
-                    value={activity.category} name='category' onChange={handleInputChange} placeholder="Category" />
+                    value={activity.category}
+                    name='category'
+                    onChange={handleInputChange}
+                    placeholder="Category" />
                 <Form.Input
-                    value={activity.date} name='date' onChange={handleInputChange} placeholder="Date" />
+                    value={activity.date}
+                    name='date'
+                    onChange={handleInputChange}
+                    type="date"
+                    placeholder="Date" />
                 <Form.Input
-                    value={activity.city} name='city' onChange={handleInputChange} placeholder="City" />
+                    value={activity.city}
+                    name='city'
+                    onChange={handleInputChange}
+                    placeholder="City" />
                 <Form.Input
-                    value={activity.venue} name='venue' onChange={handleInputChange} placeholder="Venue" />
-                <Button
+                    value={activity.venue}
+                    name='venue'
+                    onChange={handleInputChange}
+                    placeholder="Venue" />
+                <Button loading={submitting} 
                     floated="right" positive type="submit" content="Submit" />
                 <Button onClick={closeForm}
                     floated="right" type="button" content="Cancel" />

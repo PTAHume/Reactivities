@@ -9,7 +9,7 @@ namespace API.Extensions;
 public static class ApplicationServiceExtensions
 {
 	public static IServiceCollection AddApplicationServices
-	    (this IServiceCollection services, IConfiguration config)
+		(this IServiceCollection services, IConfiguration config)
 	{
 
 		services.AddControllers();
@@ -25,7 +25,7 @@ public static class ApplicationServiceExtensions
 			{
 				policy
 				.AllowAnyMethod()
-				.AllowAnyMethod()
+				.AllowAnyHeader()
 				.WithOrigins("http://localhost:3000");
 			});
 		});
