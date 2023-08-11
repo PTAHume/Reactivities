@@ -1,17 +1,12 @@
 import { Button, Card, Image } from "semantic-ui-react"
-import { Activity } from "../../../app/modules/Activity"
+import { useStore } from "../../../app/api/stores/store";
+import { LoadingComponent } from "../../../app/layout/LoadingComponent";
+import { observer } from "mobx-react-lite";
 
-export const ActivityDetails = (
-    {
-        activity,
-        cancelSelectedActivity,
-        openForm
-    }:
-        {
-            activity: Activity,
-            cancelSelectedActivity: () => void,
-            openForm: Function
-        }) => {
+export const ActivityDetails = observer(() => {
+    const { activityStore } = useStore();
+    const { selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
+    if (!activity) return <LoadingComponent/>
     return (
         <Card fluid>
             <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -34,4 +29,4 @@ export const ActivityDetails = (
             </Card.Content>
         </Card>
     )
-}
+})

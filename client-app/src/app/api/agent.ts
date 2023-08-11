@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Activity } from "../modules/Activity";
+import { Activity } from "../modules/activity";
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => setTimeout(resolve, delay));
