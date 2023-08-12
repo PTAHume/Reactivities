@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { Activity } from "../modules/activity";
 
-const sleep = (delay: number) => {
-  return new Promise((resolve) => setTimeout(resolve, delay));
+const sleep = async (delay: number) => {
+  return await new Promise((resolve) => setTimeout(resolve, delay));
 };
 
 axios.defaults.baseURL = "http://localhost:5000/api";
