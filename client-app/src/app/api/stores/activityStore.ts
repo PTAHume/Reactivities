@@ -122,11 +122,3 @@ export default class ActivityStore {
     this.activityRegistry.set(activity.id, activity);
   }
 }
-function activity(
-  previousValue: (activity: any) => any,
-  currentValue: Activity,
-  currentIndex: number,
-  array: Activity[]
-): (activity: any) => any {
-  throw new Error("Function not implemented.");
-}
