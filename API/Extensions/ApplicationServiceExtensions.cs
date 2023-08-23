@@ -4,6 +4,8 @@ using Application.Core;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -14,8 +16,11 @@ public static class ApplicationServiceExtensions
 	public static IServiceCollection AddApplicationServices
 		(this IServiceCollection services, IConfiguration config)
 	{
-
-		services.AddControllers();
+		services.AddControllers(opt=>
+		{
+			var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            opt.Filters.Add(new AuthorizeFilter(policy));
+		});
 		services.AddEndpointsApiExplorer();
 		services.AddSwaggerGen();
 		services.AddDbContext<DataContext>(opt =>
