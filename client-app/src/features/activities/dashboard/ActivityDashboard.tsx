@@ -14,7 +14,7 @@ export const ActivityDashboard = observer(() => {
         if (activityRegistry.size <= 1) loadActivities()
     }, [loadActivities, activityRegistry]);
 
-    if (loadingInitial) return <LoadingComponent content='Loading app...' />
+    if (loadingInitial) return <LoadingComponent content='Loading activities...' />
 
     return (
         <Grid>
