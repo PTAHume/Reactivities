@@ -1,8 +1,10 @@
 using System.Reflection;
 using Application.Activities;
 using Application.Core;
+using Application.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -19,7 +21,7 @@ public static class ApplicationServiceExtensions
 		services.AddControllers(opt=>
 		{
 			var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            opt.Filters.Add(new AuthorizeFilter(policy));
+			opt.Filters.Add(new AuthorizeFilter(policy));
 		});
 		services.AddEndpointsApiExplorer();
 		services.AddSwaggerGen();
@@ -40,9 +42,10 @@ public static class ApplicationServiceExtensions
 
 		services.AddFluentValidationAutoValidation(); ;
 		services.AddValidatorsFromAssemblyContaining<Create>();
-
 		services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));
 		services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+		services.AddHttpContextAccessor();
+        services.AddScoped<IUserAccessor, UserAccessor>();
 
 		return services;
 	}
