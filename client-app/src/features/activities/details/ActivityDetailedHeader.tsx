@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { Button, Header, Item, Segment, Image } from 'semantic-ui-react';
 import { Activity } from '../../../app/modules/activity';
-import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 const activityImageStyle = {
     filter: 'brightness(30%)'
@@ -16,7 +16,19 @@ const activityImageTextStyle = {
     height: 'auto',
     color: 'white'
 };
-
+const ActivityManagement = observer(({ activity }: { activity: Activity }) => {
+    if (activity.isHost) {
+        return (
+            <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right'>
+                Manage Event
+            </Button>
+        )
+    } else if (activity.isGoing) {
+        return (<Button>Cancel attendance</Button>)
+    } else {
+        return (<Button color='teal'>Join Activity</Button>)
+    }
+})
 export const ActivityDetailedHeader = observer(({ activity }: { activity: Activity }) => {
     return (
         <Segment.Group>
@@ -33,7 +45,7 @@ export const ActivityDetailedHeader = observer(({ activity }: { activity: Activi
                                 />
                                 <p>{format(activity.date!, 'dd MMM yyyy')}</p>
                                 <p>
-                                    Hosted by <strong>Bob</strong>
+                                    Hosted by <strong><Link to={`/profiles/${activity.host?.userName}`}>{activity.host?.displayName}</Link></strong>
                                 </p>
                             </Item.Content>
                         </Item>
@@ -41,11 +53,7 @@ export const ActivityDetailedHeader = observer(({ activity }: { activity: Activi
                 </Segment>
             </Segment>
             <Segment clearing attached='bottom'>
-                <Button color='teal'>Join Activity</Button>
-                <Button>Cancel attendance</Button>
-                <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right'>
-                    Manage Event
-                </Button>
+                <ActivityManagement activity={activity} />
             </Segment>
         </Segment.Group>
     )

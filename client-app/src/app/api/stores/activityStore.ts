@@ -3,6 +3,7 @@ import { Activity } from "../../modules/activity";
 import { agent } from "../agent";
 import { v4 as uuid } from "uuid";
 import { format } from "date-fns";
+import { store } from "./store";
 
 export default class ActivityStore {
   activityRegistry = new Map<string, Activity>();
@@ -119,7 +120,38 @@ export default class ActivityStore {
   };
 
   private setActivity(activity: Activity) {
+    const user = store.userStore.user;
+    if (user) {
+      activity.isGoing = activity.attendees!.some(
+        (a) => a.userName === user.userName
+      );
+      activity.isHost = activity.hostUserName === user.userName;
+      activity.host = activity.attendees!.find(
+        (x) => x.userName === activity.hostUserName
+      );
+    }
     activity.date = new Date(activity.date!);
     this.activityRegistry.set(activity.id, activity);
   }
+
+  updateAttendance = async () => {
+    const user = store.userStore.user;
+    this.loading = true;
+    try {
+      await agent.Activities.attend(this.selectedActivity!.id);
+      runInAction(() => {
+        if (this.selectedActivity?.isGoing) {
+          this.selectedActivity.attendees =
+            this.selectedActivity.attendees?.filter((a) => a.userName !== user?.userName);
+            this.selectedActivity.isGoing = false;
+        } else {
+          
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => (this.loading = false));
+    }
+  };
 }

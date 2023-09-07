@@ -1,7 +1,8 @@
-import { Button, Icon, Item, Segment } from "semantic-ui-react"
+import { Button, Icon, Item, Label, Segment } from "semantic-ui-react"
 import { Activity } from "../../../app/modules/activity"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
+import { ActivityListItemAttendee } from "./ActivityListItemAttendee"
 
 export const ActivityListItem = ({ activity }: { activity: Activity }) => {
     return (
@@ -14,8 +15,17 @@ export const ActivityListItem = ({ activity }: { activity: Activity }) => {
                             <Item.Header as={Link} to={`/activities/${activity.id}`}>
                                 {activity.title}
                             </Item.Header>
-                            <Item.Description>Hosted By mE</Item.Description>
-
+                            <Item.Description>Hosted By {activity.host?.displayName}</Item.Description>
+                            {activity.isHost && (
+                                <Item.Description>
+                                    <Label basic color="orange">You are hosting this activity</Label>
+                                </Item.Description>
+                            )}
+                            {activity.isGoing && !activity.isHost && (
+                                <Item.Description>
+                                    <Label basic color="green">You are going to this activity</Label>
+                                </Item.Description>
+                            )}
                         </Item.Content>
                     </Item>
                 </Item.Group>
@@ -27,7 +37,7 @@ export const ActivityListItem = ({ activity }: { activity: Activity }) => {
                 </span>
             </Segment>
             <Segment secondary>
-                Attendees
+                <ActivityListItemAttendee attendees={activity.attendees!} />
             </Segment>
             <Segment clearing>
                 <span>
