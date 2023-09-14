@@ -1,4 +1,4 @@
-import Calendar from "react-calendar"
+import { Calendar } from "react-calendar"
 import { Header, Menu } from "semantic-ui-react"
 
 export const ActivityFilters = () => {

@@ -1,6 +1,6 @@
 import { User, UserFormValues } from "./../modules/user";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { Activity } from "../modules/activity";
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { Activity, ActivityFormValues } from "../modules/activity";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 import { store } from "./stores/store";
@@ -26,8 +26,8 @@ axios.interceptors.response.use(
     const { data, status, config } = error.response as AxiosResponse;
     switch (status) {
       case 400:
-        if (config.method === "get" && data?.errors?.hasOwnProperty("id")) {
-          router.navigate("/not-found");
+        if (config.method === 'get' && Object.prototype.hasOwnProperty.call(data?.errors, 'id')) {
+          router.navigate('/not-found');
         }
         if (data.errors) {
           const modalStateErrors = [];
@@ -70,13 +70,12 @@ const requests = {
 };
 
 const Activities = {
-  list: () => requests.get<Activity[]>("/activities"),
+  list: () => requests.get<Activity[]>('/activities'),
   details: (id: string) => requests.get<Activity>(`/activities/${id}`),
-  create: (activity: Activity) => requests.post<void>("/activities", activity),
-  update: (activity: Activity) =>
-    requests.put<void>(`/activities/${activity.id}`, activity),
+  create: (activity: ActivityFormValues) => requests.post<void>('/activities', activity),
+  update: (activity: ActivityFormValues) => requests.put<void>(`/activities/${activity.id}`, activity),
   delete: (id: string) => requests.delete<void>(`/activities/${id}`),
-  attend: (id: string) => requests.post<void>(`/activities/${id}/attend`,{}),
+  attend: (id: string) => requests.post<void>(`/activities/${id}/attend`, {}),
 };
 
 const Account = {

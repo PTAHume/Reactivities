@@ -1,5 +1,5 @@
 import { useField } from 'formik';
-import { Label, Form, Select } from 'semantic-ui-react';
+import { Label, Form, Select, DropdownItemProps } from 'semantic-ui-react';
 
 export const SelectControl = (
     {
@@ -10,7 +10,7 @@ export const SelectControl = (
     }: {
         placeholder: string,
         name: string,
-        options:any,
+        options: DropdownItemProps[],
         label?: string
     }) => {
     const [field, meta, helpers] = useField(name);
@@ -23,7 +23,7 @@ export const SelectControl = (
                 onChange={(e, d) => helpers.setValue(d.value)}
                 onBlur={() => helpers.setTouched(true)}
                 placeholder={placeholder}
-                />
+            />
             {meta.touched && meta.error ? (
                 <Label basic color="red">{meta.error}</Label>
             ) : null}

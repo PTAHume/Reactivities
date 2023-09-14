@@ -1,13 +1,13 @@
 import { User } from "./user";
 
-export interface IProfile {
+export interface ProfileType {
   userName: string;
   displayName: string;
   image?: string;
   bio?: string;
 }
 
-export class Profile implements IProfile {
+export class Profile implements ProfileType {
   constructor(user: User) {
     this.userName = user.userName;
     this.displayName = user.displayName;

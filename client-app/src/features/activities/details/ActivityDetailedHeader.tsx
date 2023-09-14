@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { Button, Header, Item, Segment, Image } from 'semantic-ui-react';
+import { Button, Header, Item, Segment, Image, Label } from 'semantic-ui-react';
 import { Activity } from '../../../app/modules/activity';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { useStore } from '../../../app/api/stores/store';
 
 const activityImageStyle = {
     filter: 'brightness(30%)'
@@ -16,23 +17,56 @@ const activityImageTextStyle = {
     height: 'auto',
     color: 'white'
 };
-const ActivityManagement = observer(({ activity }: { activity: Activity }) => {
-    if (activity.isHost) {
-        return (
-            <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right'>
-                Manage Event
-            </Button>
-        )
-    } else if (activity.isGoing) {
-        return (<Button>Cancel attendance</Button>)
-    } else {
-        return (<Button color='teal'>Join Activity</Button>)
-    }
-})
+
 export const ActivityDetailedHeader = observer(({ activity }: { activity: Activity }) => {
+    const { activityStore: { updateAttendance, loading, cancelActivityToggle } } = useStore();
+    const ActivityParticipation = () => {
+        if (activity.isHost) {
+            return (
+                <>
+                    <Button color={activity.isCanceled ? 'green' : 'red'}
+                        floated='left'
+                        basic
+                        content={activity.isCanceled ? 'Re-activate Activity' : 'Cancel Activity'}
+                        onClick={cancelActivityToggle}
+                        loading={loading}
+                    />
+                    <Button
+                        disabled={activity.isCanceled}
+                        loading={loading}
+                        as={Link}
+                        to={`/manage/${activity.id}`}
+                        color="orange"
+                        floated='right'>
+                        Manage Event
+                    </Button>
+                </>
+            )
+        } else if (activity.isGoing) {
+            return (
+                <Button loading={loading} onClick={updateAttendance}>
+                    Cancel attendance
+                </Button>
+            )
+        } else {
+            return (
+                <Button
+                    disabled={activity.isCanceled}
+                    loading={loading}
+                    onClick={updateAttendance}
+                    color='teal'>
+                    Join attendance
+                </Button>
+            )
+        }
+    }
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{ padding: '0' }}>
+                {activity.isCanceled && (
+                    <Label style={{ position: 'absolute', zIndex: 1000, left: -14, top: 20 }}
+                        ribbon color='red' content='Cancelled' />
+                )}
                 <Image src={`/assets/categoryImages/${activity.category}.jpg`} fluid style={activityImageStyle} />
                 <Segment style={activityImageTextStyle} basic>
                     <Item.Group>
@@ -53,7 +87,7 @@ export const ActivityDetailedHeader = observer(({ activity }: { activity: Activi
                 </Segment>
             </Segment>
             <Segment clearing attached='bottom'>
-                <ActivityManagement activity={activity} />
+                <ActivityParticipation />
             </Segment>
         </Segment.Group>
     )

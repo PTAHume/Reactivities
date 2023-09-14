@@ -5,7 +5,7 @@ export const ValidationErrors = ({ errors }: { errors: string[] }) => {
         <Message error>
             {errors && (
                 <Message.List>
-                    {errors.map((error: string, i) => {
+                    {errors.map((error: string) => {
                         return (<Message.Item key={error}>
                             {error}
                         </Message.Item>
