@@ -57,7 +57,7 @@ namespace Persistence.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("BIo")
+                    b.Property<string>("Bio")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")

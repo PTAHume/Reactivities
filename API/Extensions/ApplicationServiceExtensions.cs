@@ -2,8 +2,10 @@ using System.Reflection;
 using Application.Activities;
 using Application.Core;
 using Application.Interfaces;
+using Application.Photos;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Photos;
 using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -45,7 +47,9 @@ public static class ApplicationServiceExtensions
 		services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));
 		services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 		services.AddHttpContextAccessor();
-        services.AddScoped<IUserAccessor, UserAccessor>();
+		services.AddScoped<IUserAccessor, UserAccessor>();
+		services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+		services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
 
 		return services;
 	}
