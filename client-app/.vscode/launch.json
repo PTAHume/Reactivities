@@ -1,16 +1,28 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-          "name": "Chrome",
-          "type": "chrome",
-          "request": "launch",
-          "url": "http://localhost:3000", //Change to the create-react-app default 3000
-          "webRoot": "${workspaceRoot}/src",
-          "preLaunchTask": "npm: start"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+    },
+    {
+      "name": "SWA: Run Reactives",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:4280",
+      "preLaunchTask": "swa: start vuexy",
+      "webRoot": "${workspaceFolder}/",
+      "sourceMaps": true,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+      "timeout": 30000
+    }
+  ]
 }

@@ -12,19 +12,19 @@ public class Seed
         {
             var users = new List<AppUser>
             {
-                new AppUser{
+                new() {
                     DisplayName= "Test User 1",
-                    UserName="test@user1.com",
+                    UserName="TestUser1",
                     Email="test@user1.com",
                 },
-                new AppUser{
+                new (){
                     DisplayName= "Test User 2",
-                    UserName="test@user2.com",
+                    UserName="TestUser2",
                     Email="test@user2.com",
                 },
-                new AppUser{
+                new (){
                     DisplayName= "Test User 3",
-                    UserName="test@user3.com",
+                    UserName="TestUser3",
                     Email="test@user3.com",
                 }
             };

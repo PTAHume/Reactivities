@@ -13,12 +13,13 @@ export const ActivityListItem = ({ activity }: { activity: Activity }) => {
                 )}
                 <Item.Group>
                     <Item>
-                        <Item.Image style={{ marginBottom: 3 }} size="tiny" circular src="/assets/user.png" />
+                        <Item.Image as={Link} to={`/profiles/${activity.hostUserName}`} style={{ marginBottom: 3 }} size="tiny" circular
+                            src={activity.host?.image || "/assets/user.png"} />
                         <Item.Content>
                             <Item.Header as={Link} to={`/activities/${activity.id}`}>
                                 {activity.title}
                             </Item.Header>
-                            <Item.Description>Hosted By {activity.host?.displayName}</Item.Description>
+                            <Item.Description>Hosted By <Link to={`/profiles/${activity.hostUserName}`}>{activity.host?.displayName}</Link></Item.Description>
                             {activity.isHost && (
                                 <Item.Description>
                                     <Label basic color="orange">You are hosting this activity</Label>
