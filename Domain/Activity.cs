@@ -1,5 +1,4 @@
 namespace Domain;
-
 public class Activity
 {
 	public Guid Id { get; set; }
@@ -19,4 +18,5 @@ public class Activity
 	public bool IsCancelled { get; set; }
 	
 	public ICollection<ActivityAttendee> Attendees { get; set; } = new List<ActivityAttendee>();
+	public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

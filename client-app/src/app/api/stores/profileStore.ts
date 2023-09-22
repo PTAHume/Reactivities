@@ -64,7 +64,7 @@ export default class ProfileStore {
             this.profile.image = photo.url;
           }
         }
-        this.loadingProfile = false;
+        this.uploading = false;
       });
     } catch (error) {
       console.log(error);

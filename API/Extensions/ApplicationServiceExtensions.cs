@@ -20,7 +20,7 @@ public static class ApplicationServiceExtensions
 	public static IServiceCollection AddApplicationServices
 		(this IServiceCollection services, IConfiguration config)
 	{
-		services.AddControllers(opt=>
+		services.AddControllers(opt =>
 		{
 			var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 			opt.Filters.Add(new AuthorizeFilter(policy));
@@ -38,6 +38,7 @@ public static class ApplicationServiceExtensions
 				policy
 				.AllowAnyMethod()
 				.AllowAnyHeader()
+				.AllowCredentials()
 				.WithOrigins("http://localhost:3000");
 			});
 		});
@@ -50,6 +51,7 @@ public static class ApplicationServiceExtensions
 		services.AddScoped<IUserAccessor, UserAccessor>();
 		services.AddScoped<IPhotoAccessor, PhotoAccessor>();
 		services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
+		services.AddSignalR();
 
 		return services;
 	}
