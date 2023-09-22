@@ -4,7 +4,6 @@ import { Profile } from "../../app/modules/profile"
 import { observer } from "mobx-react-lite"
 import { ProfileAbout } from "./ProfileAbout"
 
-
 export const ProfileContent = observer(({ profile }: { profile: Profile }) => {
     const panes = [
         { menuItem: 'About', render: () => <Tab.Pane><ProfileAbout /></Tab.Pane> },

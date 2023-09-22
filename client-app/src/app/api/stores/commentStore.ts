@@ -1,4 +1,3 @@
-import { Activity } from './../../modules/activity';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { ChatComment } from '../../modules/comment';
 import { makeAutoObservable, runInAction } from 'mobx';
