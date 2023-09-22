@@ -13,9 +13,10 @@ export const ActivityDetails = observer(() => {
     const { activityStore } = useStore();
     const { selectedActivity: activity, loadActivity, loadingInitial, clearSelectedActivity } = activityStore;
     const { id } = useParams()
+
     useEffect(() => {
-        if (id) loadActivity(id)
-        return () => { clearSelectedActivity() }
+        if (id) loadActivity(id);
+        return () => clearSelectedActivity();
     }, [id, loadActivity, clearSelectedActivity]);
 
     if (loadingInitial || !activity) return <LoadingComponent />
