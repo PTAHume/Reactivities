@@ -3,8 +3,10 @@ import { ActivityList } from './ActivityList';
 import { useStore } from '../../../app/api/stores/store';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { LoadingComponent } from '../../../app/layout/LoadingComponent';
 import { ActivityFilters } from './ActivityFilters';
+import { lazily } from 'react-lazily';
+
+const { LoadingComponent } = lazily(() => import("../../../app/layout/LoadingComponent"))
 
 export const ActivityDashboard = observer(() => {
     const { activityStore } = useStore();
@@ -22,7 +24,7 @@ export const ActivityDashboard = observer(() => {
                 <ActivityList />
             </Grid.Column>
             <Grid.Column width='6'>
-                <ActivityFilters/>
+                <ActivityFilters />
             </Grid.Column>
         </Grid>
     );

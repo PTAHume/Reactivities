@@ -3,7 +3,9 @@ import { Card, Header, Tab, Image, Grid, Button } from "semantic-ui-react"
 import { Photo, Profile } from "../../app/modules/profile"
 import { useStore } from "../../app/api/stores/store"
 import { SyntheticEvent, useState } from "react"
-import { PhotoUploadWidget } from "../../app/common/imageUpload/PhotoUploadWidget"
+import { lazily } from "react-lazily"
+
+const { PhotoUploadWidget } = lazily(() => import("../../app/common/imageUpload/PhotoUploadWidget"))
 
 export const ProfilePhotos = observer(({ profile }: { profile: Profile }) => {
     const { profileStore: { isCurrentUser, uploadPhoto,

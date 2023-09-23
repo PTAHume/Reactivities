@@ -6,8 +6,11 @@ import { HomePage } from '../../features/home/HomePage';
 import { ToastContainer } from 'react-toastify';
 import { useStore } from '../api/stores/store';
 import { useEffect } from 'react';
-import { LoadingComponent } from './LoadingComponent';
 import { ModalContainer } from '../common/modals/ModalContainer';
+import { lazily } from 'react-lazily';
+
+
+const { LoadingComponent } = lazily(() => import("./LoadingComponent"))
 
 function App() {
   const location = useLocation()

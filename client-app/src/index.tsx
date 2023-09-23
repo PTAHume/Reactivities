@@ -8,7 +8,8 @@ import reportWebVitals from './reportWebVitals';
 import { StoreContext, store } from './app/api/stores/store';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './app/router/Routes';
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
+import { LoadingComponent } from './app/layout/LoadingComponent';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <StoreContext.Provider value={store}>
-      <RouterProvider router={router} />
+      <Suspense fallback={<LoadingComponent />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </StoreContext.Provider>
   </StrictMode>
 );

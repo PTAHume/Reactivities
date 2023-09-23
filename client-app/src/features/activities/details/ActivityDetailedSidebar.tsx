@@ -50,6 +50,5 @@ export const ActivityDetailedSidebar = observer(({ activity: { attendees, host }
                 </List>
             </Segment>
         </>
-
     )
 })

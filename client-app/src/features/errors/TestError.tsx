@@ -1,8 +1,9 @@
 import { Button, Header, Segment } from "semantic-ui-react";
 import axios from 'axios';
 import { useState } from "react";
-import { ValidationErrors } from "./ValidationErrors";
+import { lazily } from "react-lazily";
 
+const { ValidationErrors } = lazily(() => import("./ValidationErrors"))
 
 export const TestErrors = () => {
     const baseUrl = 'http://localhost:5000/api/'
@@ -45,7 +46,7 @@ export const TestErrors = () => {
                     <Button onClick={handleBadGuid} content='Bad Guid' basic primary />
                 </Button.Group>
             </Segment>
-            {error && <ValidationErrors errors={error}/>}
+            {error && <ValidationErrors errors={error} />}
         </>
     )
 }

@@ -2,8 +2,10 @@ import { Link } from "react-router-dom"
 import { Container, Header, Segment, Image, Button } from "semantic-ui-react"
 import { useStore } from "../../app/api/stores/store"
 import { observer } from "mobx-react-lite";
-import { LoginForm } from "../users/LoginForm";
-import { RegisterForm } from "../users/RegisterForm";
+import { lazily } from "react-lazily";
+
+const { LoginForm } = lazily(() => import("../users/LoginForm"))
+const { RegisterForm } = lazily(() => import("../users/RegisterForm"))
 
 export const HomePage = observer(() => {
     const { userStore, modalStore } = useStore();

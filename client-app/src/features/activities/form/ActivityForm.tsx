@@ -2,7 +2,6 @@ import { Form, Formik } from "formik";
 import { InputControl } from "../../../app/common/form/InputControl";
 import * as Yup from 'yup'
 import { observer } from "mobx-react-lite"
-import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ActivityFormValues } from "../../../app/modules/activity";
@@ -13,6 +12,9 @@ import { SelectControl } from "../../../app/common/form/SelectControl";
 import { CategoryOptions } from "../../../app/common/options/categoryOptions";
 import { DateControl } from "../../../app/common/form/DateControl";
 import { v4 as uuid } from "uuid";
+import { lazily } from "react-lazily";
+
+const { LoadingComponent } = lazily(() => import("../../../app/layout/LoadingComponent"))
 
 export const ActivityForm = observer(() => {
     const { activityStore } = useStore();

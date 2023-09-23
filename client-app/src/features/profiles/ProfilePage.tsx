@@ -5,7 +5,9 @@ import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 import { useStore } from "../../app/api/stores/store";
 import { useEffect } from "react";
-import { LoadingComponent } from "../../app/layout/LoadingComponent";
+import { lazily } from "react-lazily";
+
+const { LoadingComponent } = lazily(() => import("../../app/layout/LoadingComponent"))
 
 export const ProfilePage = observer(() => {
     const { username } = useParams<{ username: string }>();

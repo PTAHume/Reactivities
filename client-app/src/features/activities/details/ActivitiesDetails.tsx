@@ -1,6 +1,5 @@
 import { Grid } from "semantic-ui-react"
 import { useStore } from "../../../app/api/stores/store";
-import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -8,6 +7,9 @@ import { ActivityDetailedHeader } from "./ActivityDetailedHeader";
 import { ActivityDetailedInfo } from "./ActivityDetailedInfo";
 import { ActivityDetailedSidebar } from "./ActivityDetailedSidebar";
 import { ActivityDetailedChat } from "./ActivityDetailedChat";
+import { lazily } from "react-lazily";
+
+const { LoadingComponent } = lazily(() => import("../../../app/layout/LoadingComponent"))
 
 export const ActivityDetails = observer(() => {
     const { activityStore } = useStore();

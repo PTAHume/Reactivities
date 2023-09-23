@@ -5,7 +5,10 @@ import { observer } from "mobx-react-lite"
 import { useStore } from "../../app/api/stores/store"
 import { UserFormValues } from "../../app/modules/user"
 import * as Yup from 'yup'
-import { ValidationErrors } from "../errors/ValidationErrors"
+import { lazily } from "react-lazily"
+
+const { ValidationErrors } = lazily(() => import("../errors/ValidationErrors"))
+
 
 export const RegisterForm = observer(() => {
     const { userStore } = useStore()

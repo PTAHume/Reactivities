@@ -1,8 +1,10 @@
 import { Tab } from "semantic-ui-react"
-import { ProfilePhotos } from "./ProfilePhotos"
 import { Profile } from "../../app/modules/profile"
 import { observer } from "mobx-react-lite"
-import { ProfileAbout } from "./ProfileAbout"
+import { lazily } from "react-lazily"
+
+const { ProfileAbout } = lazily(() => import("./ProfileAbout"))
+const { ProfilePhotos } = lazily(() => import("./ProfilePhotos"))
 
 export const ProfileContent = observer(({ profile }: { profile: Profile }) => {
     const panes = [
