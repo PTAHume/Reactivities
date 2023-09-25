@@ -9,14 +9,16 @@ export const LoginForm = observer(() => {
     const { userStore } = useStore()
     return (
         <Formik initialValues={{ email: '', password: '', error: null }}
-            onSubmit={(values, { setErrors }) => {
+            onSubmit={(values, { setErrors, setSubmitting }) => {
                 userStore.login({
                     email: values.email,
                     password: values.password
-                } as UserFormValues).catch(() =>
-                    setErrors({ error: 'Invalid email or password' }));
+                } as UserFormValues).catch(() => {
+                    setErrors({ error: 'Invalid email or password' })
+                    setSubmitting(false)
+                })
             }}
-            >
+        >
             {({ handleSubmit, isSubmitting, errors }) => (
                 <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
                     <Header as='h2' content='Login to Reactivates' color='teal' textAlign="center" />

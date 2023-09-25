@@ -14,14 +14,14 @@ public static class IdentityServiceExtensions
 {
 	public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
 	{
+		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+
 		services.AddIdentityCore<AppUser>(opt =>
 		{
 			opt.User.RequireUniqueEmail = true;
+			opt.User.AllowedUserNameCharacters = string.Empty;
 		})
 		.AddEntityFrameworkStores<DataContext>();
-
-		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
-
 		services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		.AddJwtBearer(opt =>
 		{
@@ -46,7 +46,6 @@ public static class IdentityServiceExtensions
 				}
 			};
 		});
-
 		services.AddAuthorization(opt =>
 		{
 			opt.AddPolicy("IsActivityHost", policy =>
@@ -54,10 +53,9 @@ public static class IdentityServiceExtensions
 				policy.Requirements.Add(new IsHostRequirement());
 			});
 		});
-
 		services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
-
 		services.AddScoped<TokenService>();
+
 		return services;
 	}
 }

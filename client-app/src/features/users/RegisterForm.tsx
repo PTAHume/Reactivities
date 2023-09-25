@@ -20,8 +20,11 @@ export const RegisterForm = observer(() => {
                     userName: values.userName,
                     email: values.email,
                     password: values.password
-                } as UserFormValues).catch((error) => setErrors({ error }));
-                setSubmitting(false)
+                } as UserFormValues).catch((error) => {
+                    setErrors({ error })
+                    setSubmitting(false)
+                });
+               
             }}
             validationSchema={Yup.object({
                 displayName: Yup.string().required(),

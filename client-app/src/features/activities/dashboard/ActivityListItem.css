@@ -1,0 +1,11 @@
+.micro {
+    position: relative;
+    bottom: -58px;
+    left: -27px;
+    background-color: orange;
+
+}
+
+.ui.items>.item>.image>img {
+    border-radius: 100%;
+}

@@ -39,7 +39,7 @@ export const ActivityDetailedChat = observer(({ activityId }: { activityId: stri
                         body: Yup.string().required('Comment required')
                     })}
                 >
-                    {({ isSubmitting, isValid, handleSubmit }) => (
+                    {({ isSubmitting, isValid, handleSubmit, dirty }) => (
                         <Form className='ui form'>
                             <Field name="body">
                                 {(props: FieldProps) => (
@@ -64,12 +64,14 @@ export const ActivityDetailedChat = observer(({ activityId }: { activityId: stri
                             </Field>
                             <Button
                                 loading={isSubmitting}
-                                disabled={isSubmitting || !isValid}
+                                disabled={isSubmitting || !dirty || !isValid}
                                 content='Add Reply'
                                 labelPosition='left'
                                 icon='edit'
                                 primary
+                                flex
                                 type='submit'
+                                style={{ display: 'flex', marginTop: '10px', zIndex: 999 }}
                                 floated='right'
                             />
                         </Form>
@@ -78,9 +80,9 @@ export const ActivityDetailedChat = observer(({ activityId }: { activityId: stri
                 <Comment.Group>
                     {commentStore.comments.map(comment => (
                         <Comment key={comment.id}>
-                            <Comment.Avatar as={Link} to={`/profile/${comment.id}`} src={comment.image ?? '/assets/user.png'} />
+                            <Comment.Avatar as={Link} to={`/profiles/${comment.username}`} src={comment.image ?? '/assets/user.png'} />
                             <Comment.Content>
-                                <Comment.Author as={Link} to={`/profile/${comment.id}`}>{comment.displayName}</Comment.Author>
+                                <Comment.Author as={Link} to={`/profiles/${comment.username}`}>{comment.displayName}</Comment.Author>
                                 <Comment.Metadata>
                                     <div>{formatDistanceToNow(comment.createdAt)} ago</div>
                                 </Comment.Metadata>

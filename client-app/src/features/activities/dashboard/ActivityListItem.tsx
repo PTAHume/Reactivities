@@ -3,7 +3,11 @@ import { Activity } from "../../../app/modules/activity"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
 import { ActivityListItemAttendee } from "./ActivityListItemAttendee"
+import { lazily } from 'react-lazily';
+import 'react-tooltip/dist/react-tooltip.css'
+import "./ActivityListItem.css"
 
+const { Tooltip } = lazily(() => import("react-tooltip"))
 export const ActivityListItem = ({ activity }: { activity: Activity }) => {
     return (
         <Segment.Group>
@@ -14,7 +18,13 @@ export const ActivityListItem = ({ activity }: { activity: Activity }) => {
                 <Item.Group>
                     <Item>
                         <Item.Image as={Link} to={`/profiles/${activity.hostUserName}`} style={{ marginBottom: 3 }} size="tiny" circular
-                            src={activity.host?.image || "/assets/user.png"} />
+                            src={activity.host?.image ?? "/assets/user.png"} />
+                        {activity.host?.following && (
+                            <>
+                                <Icon name="info" data-tooltip-id="following" data-tooltip-content="You are following this person" className="micro" circular />
+                                <Tooltip id="following" place='left' />
+                            </>
+                        )}
                         <Item.Content>
                             <Item.Header as={Link} to={`/activities/${activity.id}`}>
                                 {activity.title}

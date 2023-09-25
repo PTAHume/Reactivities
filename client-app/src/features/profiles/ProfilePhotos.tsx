@@ -53,7 +53,7 @@ export const ProfilePhotos = observer(({ profile }: { profile: Profile }) => {
                                                 color="green"
                                                 content="Main"
                                                 name={'main' + photo.id}
-                                                disabled={photo.isMain}
+                                                disabled={photo.isMain || loading}
                                                 loading={target === 'main' + photo.id && loading}
                                                 onClick={e => handleSetMainPhoto(photo, e)}
                                             />
@@ -62,7 +62,7 @@ export const ProfilePhotos = observer(({ profile }: { profile: Profile }) => {
                                                 color="red"
                                                 icon="trash"
                                                 name={photo.id}
-                                                disabled={photo.isMain}
+                                                disabled={photo.isMain || loading}
                                                 loading={target === photo.id && loading}
                                                 onClick={e => handleDeletePhoto(photo, e)}
                                             />

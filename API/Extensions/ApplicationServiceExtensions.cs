@@ -1,13 +1,10 @@
-using System.Reflection;
 using Application.Activities;
 using Application.Core;
 using Application.Interfaces;
-using Application.Photos;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Photos;
 using Infrastructure.Security;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +39,6 @@ public static class ApplicationServiceExtensions
 				.WithOrigins("http://localhost:3000");
 			});
 		});
-
 		services.AddFluentValidationAutoValidation(); ;
 		services.AddValidatorsFromAssemblyContaining<Create>();
 		services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));

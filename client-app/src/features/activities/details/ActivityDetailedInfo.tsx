@@ -3,7 +3,7 @@ import { Segment, Grid, Icon } from 'semantic-ui-react'
 import { Activity } from '../../../app/modules/activity';
 import { format } from 'date-fns';
 
-export const ActivityDetailedInfo = observer( ({ activity }: { activity: Activity }) =>{
+export const ActivityDetailedInfo = observer(({ activity }: { activity: Activity }) => {
     return (
         <Segment.Group>
             <Segment attached='top'>

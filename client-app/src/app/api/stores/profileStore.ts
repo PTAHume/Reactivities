@@ -43,6 +43,9 @@ export default class ProfileStore {
           store.userStore.setDisplayName(profile.displayName);
         }
         this.profile = { ...this.profile, ...profile };
+      });
+      await store.activityStore.loadActivities();
+      runInAction(async () => {
         this.loading = false;
       });
     } catch (error) {
@@ -64,6 +67,11 @@ export default class ProfileStore {
             this.profile.image = photo.url;
           }
         }
+      });
+      if (this.profile && photo.isMain && store.userStore.user) {
+        await store.activityStore.loadActivities();
+      }
+      runInAction(async () => {
         this.uploading = false;
       });
     } catch (error) {
@@ -82,8 +90,11 @@ export default class ProfileStore {
           this.profile.photos.find((p) => p.isMain)!.isMain = false;
           this.profile.photos.find((p) => p.id === photo.id)!.isMain = true;
           this.profile.image = photo.url;
-          this.loading = false;
         }
+      });
+      await store.activityStore.loadActivities();
+      runInAction(async () => {
+        this.loading = false;
       });
     } catch (error) {
       console.log(error);
