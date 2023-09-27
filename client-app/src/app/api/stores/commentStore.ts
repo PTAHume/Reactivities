@@ -53,7 +53,7 @@ export default class CommentStore {
   addComments = async (chatComment: { body: string; activityId?: string }) => {
     chatComment.activityId = store.activityStore.selectedActivity?.id;
     try {
-      await this.hubConnection?.invoke('SendComment', chatComment);
+    return  await this.hubConnection?.invoke('SendComment', chatComment);
     } catch (error) {
       console.log(error);
     }

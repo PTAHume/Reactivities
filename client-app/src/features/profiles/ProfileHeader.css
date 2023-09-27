@@ -1,8 +1,0 @@
-.ui.move.reveal>.content {
-    display: block;
-    float: right;
-    white-space: normal;
-    width: 100%;
-    margin: 0;
-    transition: transform .5s cubic-bezier(.175, .885, .32, 1) .1s;
-}

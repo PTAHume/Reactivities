@@ -88,6 +88,18 @@ export default class ActivityStore {
     }
   };
 
+  updateAttendeeFollowing = (username: string) => {
+    this.activityRegistry.forEach((activity) => {
+      activity.attendees.forEach((attendee: Profile) => {
+        if (attendee.userName === username) {
+          attendee.following ? attendee.followersCount-- : attendee.followersCount++;
+          attendee.following = !attendee.following;
+        }
+      });
+    });
+  };
+
+
   updateActivity = async (activity: ActivityFormValues) => {
     try {
       await agent.Activities.update(activity);
@@ -130,7 +142,7 @@ export default class ActivityStore {
           this.selectedActivity.isGoing = false;
         } else {
           const attendee = new Profile(user!);
-          this.selectedActivity?.attendees?.push(attendee);
+          this.selectedActivity?.attendees.push(attendee);
           this.selectedActivity!.isGoing = true;
         }
         this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
@@ -168,9 +180,9 @@ export default class ActivityStore {
   private setActivity(activity: Activity) {
     const user = store.userStore.user;
     if (user) {
-      activity.isGoing = activity.attendees!.some((a) => a.userName === user.userName);
+      activity.isGoing = activity.attendees.some((a) => a.userName === user.userName);
       activity.isHost = activity.hostUserName === user.userName;
-      activity.host = activity.attendees!.find((x) => x.userName === activity.hostUserName);
+      activity.host = activity.attendees.find((x) => x.userName === activity.hostUserName);
     }
     activity.date = new Date(activity.date!);
     this.activityRegistry.set(activity.id, activity);

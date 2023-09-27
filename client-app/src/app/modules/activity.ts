@@ -13,7 +13,7 @@ export interface ActivityType {
   isGoing: boolean;
   isHost: boolean;
   host?: Profile;
-  attendees?: Profile[];
+  attendees: Profile[];
 }
 
 export class Activity implements ActivityType {
@@ -38,7 +38,7 @@ export class Activity implements ActivityType {
   isGoing: boolean = false;
   isHost: boolean = false;
   host?: Profile;
-  attendees?: Profile[];
+  attendees: Profile[] = [];
 }
 
 export class ActivityFormValues {

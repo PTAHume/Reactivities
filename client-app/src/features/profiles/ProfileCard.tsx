@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite"
 import { Profile } from "../../app/modules/profile"
 import { Card, Grid, Icon, Image } from "semantic-ui-react"
 import { Link } from "react-router-dom"
+import { FollowButton } from "./FollowButton"
 
 export const ProfileCard = observer(({ profile }: { profile: Profile }) => {
     function truncate(str: string | undefined) {
@@ -24,16 +25,17 @@ export const ProfileCard = observer(({ profile }: { profile: Profile }) => {
                             {profile.followersCount}
                         </span>
                     </Grid.Column>
-                    <Grid.Column width={9}>
+                    <Grid.Column width={13} style={{ color: 'orange' }}>
                         {profile.following && (
-                            <span style={{ color: 'orange', whiteSpace: 'nowrap' }}>
+                            <>
                                 <Icon name='info' color='orange' />
-                                You are following this person
-                            </span>
+                                {"You're Following"}
+                            </>
                         )}
                     </Grid.Column>
                 </Grid>
             </Card.Content>
+            <FollowButton profile={profile} />
         </Card>
     )
 })

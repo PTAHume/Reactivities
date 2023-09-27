@@ -4,11 +4,12 @@ import { Link } from "react-router-dom"
 import { format } from "date-fns"
 import { ActivityListItemAttendee } from "./ActivityListItemAttendee"
 import { lazily } from 'react-lazily';
+import { observer } from "mobx-react-lite"
 import 'react-tooltip/dist/react-tooltip.css'
 import "./ActivityListItem.css"
 
 const { Tooltip } = lazily(() => import("react-tooltip"))
-export const ActivityListItem = ({ activity }: { activity: Activity }) => {
+export const ActivityListItem = observer( ({ activity }: { activity: Activity }) => {
     return (
         <Segment.Group>
             <Segment>
@@ -51,7 +52,7 @@ export const ActivityListItem = ({ activity }: { activity: Activity }) => {
                 </span>
             </Segment>
             <Segment secondary>
-                <ActivityListItemAttendee attendees={activity.attendees!} />
+                <ActivityListItemAttendee attendees={activity.attendees} />
             </Segment>
             <Segment clearing>
                 <span>
@@ -66,4 +67,4 @@ export const ActivityListItem = ({ activity }: { activity: Activity }) => {
             </Segment>
         </Segment.Group>
     )
-}
+})
