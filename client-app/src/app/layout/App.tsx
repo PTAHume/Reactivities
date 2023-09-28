@@ -1,39 +1,43 @@
-import { Container } from 'semantic-ui-react';
-import { NavBar } from './NavBar';
-import { observer } from 'mobx-react-lite';
-import { Outlet, useLocation } from 'react-router-dom';
-import { HomePage } from '../../features/home/HomePage';
-import { ToastContainer } from 'react-toastify';
-import { useStore } from '../api/stores/store';
-import { useEffect } from 'react';
-import { ModalContainer } from '../common/modals/ModalContainer';
-import { lazily } from 'react-lazily';
+import { Container } from "semantic-ui-react";
+import { NavBar } from "./NavBar";
+import { observer } from "mobx-react-lite";
+import { Outlet, useLocation } from "react-router-dom";
+import { HomePage } from "../../features/home/HomePage";
+import { ToastContainer } from "react-toastify";
+import { useStore } from "../api/stores/store";
+import { useEffect } from "react";
+import { ModalContainer } from "../common/modals/ModalContainer";
+import { lazily } from "react-lazily";
 
-
-const { LoadingComponent } = lazily(() => import("./LoadingComponent"))
+const { LoadingComponent } = lazily(() => import("./LoadingComponent"));
 
 function App() {
-  const location = useLocation()
+  const location = useLocation();
   const { commonStore, userStore } = useStore();
 
   useEffect(() => {
     if (commonStore.token) {
-      userStore.getUser().finally(() => commonStore.setAppLoaded());
+      userStore.getUser().finally(() => {
+        commonStore.setAppLoaded();
+      });
     } else {
-      commonStore.setAppLoaded()
+      commonStore.setAppLoaded();
     }
   }, [commonStore, userStore]);
 
-  if (!commonStore.appLoaded) return <LoadingComponent content='Loading app...' />;
+  if (!commonStore.appLoaded)
+    return <LoadingComponent content="Loading app..." />;
 
   return (
     <>
-      <ModalContainer/>
-      <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
-      {location.pathname === '/' ? <HomePage /> : (
+      <ModalContainer />
+      <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
+      {location.pathname === "/" ? (
+        <HomePage />
+      ) : (
         <>
           <NavBar />
-          <Container style={{ marginTop: '7em' }}>
+          <Container style={{ marginTop: "7em" }}>
             <Outlet />
           </Container>
         </>

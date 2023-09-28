@@ -1,21 +1,19 @@
 module.exports = {
     extends: [
-        // By extending from a plugin config, we can get recommended rules without having to add them manually.
         'eslint:recommended',
         'plugin:react/recommended',
         'plugin:import/recommended',
         'plugin:jsx-a11y/recommended',
-        'plugin:@typescript-eslint/recommended',
-        // This disables the formatting rules in ESLint that Prettier is going to be responsible for handling.
-        // Make sure it's always the last config, so it gets the chance to override other configs.
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+        'plugin:react/jsx-runtime',
         'eslint-config-prettier',
+        'prettier',
     ],
     settings: {
         react: {
-            // Tells eslint-plugin-react to automatically detect the version of React to use.
             version: 'detect',
         },
-        // Tells eslint how to resolve imports
         'import/resolver': {
             node: {
                 paths: ['src'],
@@ -23,17 +21,30 @@ module.exports = {
             },
         },
     },
+    parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: ['./tsconfig.json', './tsconfig.node.json'],
+        tsconfigRootDir: __dirname,
+    },
     rules: {
         'import/named': 0,
-        'unicorn/prefer-module': 'off',
-        'unicorn/prefer-query-selector': 'off',
-        'unicorn/numeric-separators-style': 'off',
-        'react/react-in-jsx-scope': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/non-nullable-type-assertion-style': 'off',
+        '@typescript-eslint/no-unsafe-return': 'off',
+        '@typescript-eslint/no-unnecessary-condition': 'off',
+        '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-throw-literal': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-invalid-void-type': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-misused-promises': 'off',
     },
     overrides: [
         {
             // Apply rule override only to files with the following extensions
-            files: ['*.tsx', '*.jsx', '*.ts'],
+            files: ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
             rules: {
                 '@typescript-eslint/ban-types': [
                     'error',

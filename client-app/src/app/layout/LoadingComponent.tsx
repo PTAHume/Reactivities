@@ -1,18 +1,15 @@
-import { Dimmer, Loader } from "semantic-ui-react"
+import { Dimmer, Loader } from "semantic-ui-react";
 
-export const LoadingComponent = (
-    {
-        inverted = true,
-        content = "Loading..."
-    }:
-        {
-            inverted?: boolean,
-            content?: string
-        }
-) => {
-    return (
-        <Dimmer inverted={inverted} active={true}>
-            <Loader content={content} />
-        </Dimmer>
-    )
-}
+export const LoadingComponent = ({
+  inverted = true,
+  content = "Loading...",
+}: {
+  inverted?: boolean;
+  content?: string;
+}) => {
+  return (
+    <Dimmer inverted={inverted} active={true}>
+      <Loader content={content} />
+    </Dimmer>
+  );
+};

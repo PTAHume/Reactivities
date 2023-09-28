@@ -1,10 +1,10 @@
-import { createContext, useContext } from 'react';
-import ActivityStore from './activityStore';
-import CommonStore from './commonStore';
-import UserStore from './userStore';
-import ModalStore from './modelStore';
-import ProfileStore from './profileStore';
-import CommentStore from './commentStore';
+import { createContext, useContext } from "react";
+import ActivityStore from "./activityStore";
+import CommonStore from "./commonStore";
+import UserStore from "./userStore";
+import ModalStore from "./modelStore";
+import ProfileStore from "./profileStore";
+import CommentStore from "./commentStore";
 
 interface Store {
   activityStore: ActivityStore;

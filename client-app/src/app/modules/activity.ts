@@ -1,4 +1,4 @@
-import { Profile } from './profile';
+import { Profile } from "./profile";
 
 export interface ActivityType {
   id: string;
@@ -26,29 +26,29 @@ export class Activity implements ActivityType {
     this.venue = init.venue;
     this.city = init.city;
   }
-  id: string = '';
-  title: string = '';
+  id = "";
+  title = "";
   date: Date | null = null;
-  description: string = '';
-  category: string = '';
-  city: string = '';
-  venue: string = '';
-  hostUserName: string = '';
-  isCanceled: boolean = false;
-  isGoing: boolean = false;
-  isHost: boolean = false;
+  description = "";
+  category = "";
+  city = "";
+  venue = "";
+  hostUserName = "";
+  isCanceled = false;
+  isGoing = false;
+  isHost = false;
   host?: Profile;
   attendees: Profile[] = [];
 }
 
 export class ActivityFormValues {
   id?: string = undefined;
-  title: string = '';
-  category: string = '';
-  description: string = '';
+  title = "";
+  category = "";
+  description = "";
   date: Date | null = null;
-  city: string = '';
-  venue: string = '';
+  city = "";
+  venue = "";
 
   constructor(activity?: ActivityFormValues) {
     if (activity) {

@@ -16,7 +16,7 @@ export default class CommonStore {
         } else {
           localStorage.removeItem("jwt");
         }
-      }
+      },
     );
   }
 

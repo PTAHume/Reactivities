@@ -1,7 +1,11 @@
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { ChatComment } from '../../modules/comment';
-import { makeAutoObservable, runInAction } from 'mobx';
-import { store } from './store';
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  LogLevel,
+} from "@microsoft/signalr";
+import { ChatComment } from "../../modules/comment";
+import { makeAutoObservable, runInAction } from "mobx";
+import { store } from "./store";
 
 export default class CommentStore {
   comments: ChatComment[] = [];
@@ -14,25 +18,27 @@ export default class CommentStore {
   createHubConnection = (activityId: string) => {
     if (store.activityStore.selectedActivity) {
       this.hubConnection = new HubConnectionBuilder()
-        .withUrl('http://localhost:5000/chat?activityId=' + activityId, {
+        .withUrl("http://localhost:5000/chat?activityId=" + activityId, {
           accessTokenFactory: () => store.userStore.user?.token as string,
         })
         .withAutomaticReconnect()
         .configureLogging(LogLevel.Information)
         .build();
 
-      this.hubConnection.start().catch((error) => console.log('Error establishing the connection' + error));
+      this.hubConnection.start().catch((error) => {
+        console.log("Error establishing the connection" + error);
+      });
 
-      this.hubConnection.on('LoadComments', (comments: ChatComment[]) => {
+      this.hubConnection.on("LoadComments", (comments: ChatComment[]) => {
         runInAction(() => {
           comments.forEach((comment: ChatComment) => {
-            comment.createdAt = new Date(comment.createdAt + 'Z');
+            comment.createdAt = new Date(comment.createdAt.toString() + "Z");
           });
           this.comments = comments;
         });
       });
 
-      this.hubConnection.on('ReceiveComment', (comment: ChatComment) => {
+      this.hubConnection.on("ReceiveComment", (comment: ChatComment) => {
         runInAction(() => {
           comment.createdAt = new Date(comment.createdAt);
           this.comments.unshift(comment);
@@ -42,7 +48,9 @@ export default class CommentStore {
   };
 
   stopHubConnection = () => {
-    this.hubConnection?.stop().catch((error) => console.log('Error stopping the connection' + error));
+    this.hubConnection?.stop().catch((error) => {
+      console.log("Error stopping the connection" + error);
+    });
   };
 
   clearComments = () => {
@@ -53,7 +61,7 @@ export default class CommentStore {
   addComments = async (chatComment: { body: string; activityId?: string }) => {
     chatComment.activityId = store.activityStore.selectedActivity?.id;
     try {
-    return  await this.hubConnection?.invoke('SendComment', chatComment);
+      return await this.hubConnection?.invoke("SendComment", chatComment);
     } catch (error) {
       console.log(error);
     }

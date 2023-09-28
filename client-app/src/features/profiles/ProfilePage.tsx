@@ -7,33 +7,34 @@ import { useStore } from "../../app/api/stores/store";
 import { useEffect } from "react";
 import { lazily } from "react-lazily";
 
-const { LoadingComponent } = lazily(() => import("../../app/layout/LoadingComponent"))
+const { LoadingComponent } = lazily(
+  () => import("../../app/layout/LoadingComponent"),
+);
 
 export const ProfilePage = observer(() => {
-    const { username } = useParams<{ username: string }>();
-    const { profileStore } = useStore();
-    const { loadingProfile, profile, loadProfile, setActiveTab } = profileStore;
+  const { username } = useParams<{ username: string }>();
+  const { profileStore } = useStore();
+  const { loadingProfile, profile, loadProfile, setActiveTab } = profileStore;
 
-    useEffect(() => {
-        if (username)
-            loadProfile(username)
-        return () => {
-            setActiveTab(0)
-        }
-    }, [loadProfile, username])
+  useEffect(() => {
+    if (username != null) loadProfile(username);
+    return () => {
+      setActiveTab(0);
+    };
+  }, [loadProfile, username]);
 
-    if (loadingProfile) return <LoadingComponent content="Loading Profile..." />
+  if (loadingProfile) return <LoadingComponent content="Loading Profile..." />;
 
-    return (
-        <Grid>
-            <Grid.Column width={16}>
-                {profile &&
-                    <>
-                        <ProfileHeader profile={profile} />
-                        <ProfileContent profile={profile} />
-                    </>
-                }
-            </Grid.Column>
-        </Grid>
-    )
-})
+  return (
+    <Grid>
+      <Grid.Column width={16}>
+        {profile && (
+          <>
+            <ProfileHeader profile={profile} />
+            <ProfileContent profile={profile} />
+          </>
+        )}
+      </Grid.Column>
+    </Grid>
+  );
+});

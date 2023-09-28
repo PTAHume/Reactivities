@@ -1,9 +1,9 @@
-import { makeAutoObservable, runInAction } from 'mobx';
-import { Activity, ActivityFormValues } from '../../modules/activity';
-import { agent } from '../agent';
-import { format } from 'date-fns';
-import { store } from './store';
-import { Profile } from '../../modules/profile';
+import { makeAutoObservable, runInAction } from "mobx";
+import { Activity, ActivityFormValues } from "../../modules/activity";
+import { agent } from "../agent";
+import { format } from "date-fns";
+import { store } from "./store";
+import { Profile } from "../../modules/profile";
 
 export default class ActivityStore {
   activityRegistry = new Map<string, Activity>();
@@ -18,18 +18,22 @@ export default class ActivityStore {
   }
 
   get activitiesByDate() {
-    return Array.from(this.activityRegistry.values()).sort((a, b) => a.date!.getTime() - b.date!.getTime());
+    return Array.from(this.activityRegistry.values()).sort((a, b) =>
+      a.date && b.date ? a.date.getTime() - b.date.getTime() : -1,
+    );
   }
 
   get groupedActivities() {
     return Object.entries(
-      this.activitiesByDate.reduce(
+      this.activitiesByDate.reduce<Record<string, Activity[]>>(
         (activities, activity) => {
-          const date = format(activity.date!, 'dd MMM yyyy');
-          activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+          const date = format(activity.date!, "dd MMM yyyy");
+          activities[date] = activities[date]
+            ? [...activities[date], activity]
+            : [activity];
           return activities;
         },
-        {} as { [key: string]: Activity[] },
+        {},
       ),
     );
   }
@@ -92,20 +96,24 @@ export default class ActivityStore {
     this.activityRegistry.forEach((activity) => {
       activity.attendees.forEach((attendee: Profile) => {
         if (attendee.userName === username) {
-          attendee.following ? attendee.followersCount-- : attendee.followersCount++;
+          attendee.following
+            ? attendee.followersCount--
+            : attendee.followersCount++;
           attendee.following = !attendee.following;
         }
       });
     });
   };
 
-
   updateActivity = async (activity: ActivityFormValues) => {
     try {
       await agent.Activities.update(activity);
       runInAction(() => {
         if (activity.id) {
-          const updatedActivity = { ...this.getActivity(activity.id), ...activity };
+          const updatedActivity = {
+            ...this.getActivity(activity.id),
+            ...activity,
+          };
           this.activityRegistry.set(activity.id, updatedActivity as Activity);
           this.selectedActivity = updatedActivity as Activity;
         }
@@ -136,16 +144,20 @@ export default class ActivityStore {
       await agent.Activities.attend(this.selectedActivity!.id);
       runInAction(() => {
         if (this.selectedActivity?.isGoing) {
-          this.selectedActivity.attendees = this.selectedActivity.attendees?.filter(
-            (a) => a.userName !== user?.userName,
-          );
+          this.selectedActivity.attendees =
+            this.selectedActivity.attendees.filter(
+              (a) => a.userName !== user?.userName,
+            );
           this.selectedActivity.isGoing = false;
         } else {
           const attendee = new Profile(user!);
           this.selectedActivity?.attendees.push(attendee);
           this.selectedActivity!.isGoing = true;
         }
-        this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
+        this.activityRegistry.set(
+          this.selectedActivity!.id,
+          this.selectedActivity!,
+        );
       });
     } catch (error) {
       console.log(error);
@@ -160,7 +172,10 @@ export default class ActivityStore {
       await agent.Activities.attend(this.selectedActivity!.id);
       runInAction(() => {
         this.selectedActivity!.isCanceled = !this.selectedActivity!.isCanceled;
-        this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
+        this.activityRegistry.set(
+          this.selectedActivity!.id,
+          this.selectedActivity!,
+        );
       });
     } catch (error) {
       console.log(error);
@@ -180,9 +195,13 @@ export default class ActivityStore {
   private setActivity(activity: Activity) {
     const user = store.userStore.user;
     if (user) {
-      activity.isGoing = activity.attendees.some((a) => a.userName === user.userName);
+      activity.isGoing = activity.attendees.some(
+        (a) => a.userName === user.userName,
+      );
       activity.isHost = activity.hostUserName === user.userName;
-      activity.host = activity.attendees.find((x) => x.userName === activity.hostUserName);
+      activity.host = activity.attendees.find(
+        (x) => x.userName === activity.hostUserName,
+      );
     }
     activity.date = new Date(activity.date!);
     this.activityRegistry.set(activity.id, activity);

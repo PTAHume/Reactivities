@@ -1,8 +1,8 @@
-import { makeAutoObservable, runInAction } from 'mobx';
-import { User, UserFormValues } from '../../modules/user';
-import { agent } from '../agent';
-import { store } from './store';
-import { router } from '../../router/Routes';
+import { makeAutoObservable, runInAction } from "mobx";
+import { User, UserFormValues } from "../../modules/user";
+import { agent } from "../agent";
+import { store } from "./store";
+import { router } from "../../router/Routes";
 
 export default class UserStore {
   user: User | null = null;
@@ -21,14 +21,14 @@ export default class UserStore {
     runInAction(() => {
       this.user = user;
     });
-    router.navigate('/activities');
+    router.navigate("/activities");
     store.modalStore.closeModal();
     console.log(user);
   };
 
   logout = () => {
     store.commonStore.setToken(null);
-    router.navigate('/');
+    router.navigate("/");
     this.user = null;
   };
 
@@ -38,7 +38,7 @@ export default class UserStore {
     runInAction(() => {
       this.user = user;
     });
-    router.navigate('/activities');
+    router.navigate("/activities");
     store.modalStore.closeModal();
     console.log(user);
   };
