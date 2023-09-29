@@ -7,6 +7,7 @@ module.exports = {
         'plugin:@typescript-eslint/strict-type-checked',
         'plugin:@typescript-eslint/stylistic-type-checked',
         'plugin:react/jsx-runtime',
+        'plugin:react-hooks/recommended',
         'eslint-config-prettier',
         'prettier',
     ],
@@ -40,6 +41,8 @@ module.exports = {
         '@typescript-eslint/no-invalid-void-type': 'off',
         '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
+        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+        "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
     },
     overrides: [
         {
