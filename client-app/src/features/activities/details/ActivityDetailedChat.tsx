@@ -1,11 +1,11 @@
-import { observer } from 'mobx-react-lite';
-import { Segment, Header, Comment, Button, Loader, Flag } from 'semantic-ui-react';
-import { useStore } from '../../../app/api/stores/store';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Formik, Form, Field, FieldProps } from 'formik';
-import * as Yup from 'yup';
-import { formatDistanceToNow } from 'date-fns';
+import { observer } from "mobx-react-lite";
+import { Segment, Header, Comment, Button, Loader } from "semantic-ui-react";
+import { useStore } from "../../../app/api/stores/store";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Formik, Form, Field, FieldProps } from "formik";
+import * as Yup from "yup";
+import { formatDistanceToNow } from "date-fns";
 
 export const ActivityDetailedChat = observer(
   ({ activityId }: { activityId: string }) => {
@@ -29,7 +29,7 @@ export const ActivityDetailedChat = observer(
           attached="top"
           inverted
           color="teal"
-          style={{ border: 'none' }}
+          style={{ border: "none" }}
         >
           <Header>Chat about this event</Header>
         </Segment>
@@ -40,26 +40,26 @@ export const ActivityDetailedChat = observer(
                 resetForm();
               })
             }
-            initialValues={{ body: '' }}
+            initialValues={{ body: "" }}
             validationSchema={Yup.object({
-              body: Yup.string().required('Comment required'),
+              body: Yup.string().required("Comment required"),
             })}
           >
             {({ isSubmitting, isValid, handleSubmit, dirty }) => (
               <Form className="ui form">
                 <Field name="body">
                   {(props: FieldProps) => (
-                    <div style={{ position: 'relative' }}>
+                    <div style={{ position: "relative" }}>
                       <Loader active={isSubmitting} />
                       <textarea
                         placeholder="Enter your comments (Press Enter to submit, SHIFT + Enter for new line"
                         rows={2}
                         {...props.field}
                         onKeyDown={(e) => {
-                          if (e.key === 'Enter' && e.shiftKey) {
+                          if (e.key === "Enter" && e.shiftKey) {
                             return;
                           }
-                          if (e.key === 'Enter' && !e.shiftKey) {
+                          if (e.key === "Enter" && !e.shiftKey) {
                             e.preventDefault();
                             isValid && handleSubmit();
                           }
@@ -76,7 +76,7 @@ export const ActivityDetailedChat = observer(
                   icon="edit"
                   primary
                   type="submit"
-                  style={{ display: 'flex', marginTop: '10px', zIndex: 999 }}
+                  style={{ display: "flex", marginTop: "10px", zIndex: 999 }}
                   floated="right"
                 />
               </Form>
@@ -88,7 +88,7 @@ export const ActivityDetailedChat = observer(
                 <Comment.Avatar
                   as={Link}
                   to={`/profiles/${comment.username}`}
-                  src={comment.image ?? '/assets/user.png'}
+                  src={comment.image ?? "/assets/user.png"}
                 />
                 <Comment.Content>
                   <Comment.Author
@@ -100,7 +100,7 @@ export const ActivityDetailedChat = observer(
                   <Comment.Metadata>
                     <div>{formatDistanceToNow(comment.createdAt)} ago</div>
                   </Comment.Metadata>
-                  <Comment.Text style={{ whiteSpace: 'pre-wrap' }}>
+                  <Comment.Text style={{ whiteSpace: "pre-wrap" }}>
                     {comment.body}
                   </Comment.Text>
                 </Comment.Content>
