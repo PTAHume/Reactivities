@@ -105,6 +105,22 @@ export default class ActivityStore {
     });
   };
 
+updateAttendeeProfile = (profile: Profile) => {
+    this.activityRegistry.forEach((activity: Activity) => {
+      activity.attendees?.forEach((attendee: Profile) => {
+        if (attendee.userName === profile.userName) {
+          attendee.bio = profile.bio;
+          attendee.displayName = profile.displayName;
+          attendee.image = profile.photos?.find((p) => p.isMain)?.url;
+
+        }
+        if (activity.host?.userName === profile.userName) {
+          activity.host = {...activity.host, ...profile}
+        }
+      });
+    });
+  };
+
   updateActivity = async (activity: ActivityFormValues) => {
     try {
       await agent.Activities.update(activity);

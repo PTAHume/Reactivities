@@ -65,7 +65,7 @@ export default class ProfileStore {
         }
         this.profile = { ...this.profile, ...profile };
       });
-      await store.activityStore.loadActivities();
+      store.activityStore.updateAttendeeProfile(this.profile!)
       runInAction(() => {
         this.loading = false;
       });
@@ -90,7 +90,7 @@ export default class ProfileStore {
         }
       });
       if (this.profile && photo.isMain && store.userStore.user) {
-        await store.activityStore.loadActivities();
+        store.activityStore.updateAttendeeProfile(this.profile)
       }
       runInAction(() => {
         this.uploading = false;
@@ -114,7 +114,7 @@ export default class ProfileStore {
           this.profile.image = photo.url;
         }
       });
-      await store.activityStore.loadActivities();
+      store.activityStore.updateAttendeeProfile(this.profile)
       runInAction(() => {
         this.loading = false;
       });

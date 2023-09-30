@@ -73,7 +73,6 @@ export const ActivityDetailedChat = observer(
                   labelPosition="left"
                   icon="edit"
                   primary
-                  flex
                   type="submit"
                   style={{ display: "flex", marginTop: "10px", zIndex: 999 }}
                   floated="right"
