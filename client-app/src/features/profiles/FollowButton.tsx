@@ -7,17 +7,16 @@ import { SyntheticEvent, useState } from "react";
 export const FollowButton = observer(({ profile }: { profile: Profile }) => {
   const { profileStore, userStore } = useStore();
   const { updateFollowing, loading } = profileStore;
-  const [target, setTarget] = useState('');
+  const [target, setTarget] = useState("");
 
   if (userStore.user?.userName == profile.userName) return null;
 
-  const handleButton = (
-    e: SyntheticEvent,
-    username: string,
-  ) => {
+  const handleButton = (e: SyntheticEvent, username: string) => {
     e.preventDefault();
     setTarget(username);
-    updateFollowing(username, !profile.following).then(() => { setTarget(''); })
+    updateFollowing(username, !profile.following).then(() => {
+      setTarget("");
+    });
   };
 
   return (
@@ -27,7 +26,7 @@ export const FollowButton = observer(({ profile }: { profile: Profile }) => {
           fluid
           color="teal"
           name={profile.userName}
-          content={profile.following ? 'Following' : 'Not Following'}
+          content={profile.following ? "Following" : "Not Following"}
           loading={target === profile.userName && loading}
           disabled={target === profile.userName && loading}
         />
@@ -37,8 +36,8 @@ export const FollowButton = observer(({ profile }: { profile: Profile }) => {
           fluid
           basic
           name={profile.userName}
-          color={profile.following ? 'red' : 'green'}
-          content={profile.following ? 'Un-follow' : 'Follow'}
+          color={profile.following ? "red" : "green"}
+          content={profile.following ? "Un-follow" : "Follow"}
           loading={target === profile.userName && loading}
           disabled={target === profile.userName && loading}
           onClick={(e) => {

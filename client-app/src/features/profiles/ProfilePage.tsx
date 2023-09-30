@@ -1,14 +1,14 @@
-import { Grid } from 'semantic-ui-react';
-import { ProfileHeader } from './ProfileHeader';
-import { ProfileContent } from './ProfileContent';
-import { observer } from 'mobx-react-lite';
-import { useParams } from 'react-router-dom';
-import { useStore } from '../../app/api/stores/store';
-import { useEffect } from 'react';
-import { lazily } from 'react-lazily';
+import { Grid } from "semantic-ui-react";
+import { ProfileHeader } from "./ProfileHeader";
+import { ProfileContent } from "./ProfileContent";
+import { observer } from "mobx-react-lite";
+import { useParams } from "react-router-dom";
+import { useStore } from "../../app/api/stores/store";
+import { useEffect } from "react";
+import { lazily } from "react-lazily";
 
 const { LoadingComponent } = lazily(
-  () => import('../../app/layout/LoadingComponent'),
+  () => import("../../app/layout/LoadingComponent"),
 );
 
 export const ProfilePage = observer(() => {
