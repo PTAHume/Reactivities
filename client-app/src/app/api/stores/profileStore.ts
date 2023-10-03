@@ -13,7 +13,7 @@ export default class ProfileStore {
   loadingFollowings = false;
   activeTab = 0;
   loadingActivities = false;
-  userActivities: UserActivity[] = []
+  userActivities: UserActivity[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -202,8 +202,8 @@ export default class ProfileStore {
     }
   };
 
-  loadUserActivities = async (username:string,predicate?:string) => { 
-  this.loadingActivities = true;
+  loadUserActivities = async (username: string, predicate?: string) => {
+    this.loadingActivities = true;
     try {
       const activities = await agent.Profiles.listActivities(
         username,
@@ -217,6 +217,5 @@ export default class ProfileStore {
       console.log(error);
       runInAction(() => (this.loadingActivities = false));
     }
-  }
-
+  };
 }
