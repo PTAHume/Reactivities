@@ -6,6 +6,7 @@ import { router } from "../router/Routes";
 import { store } from "./stores/store";
 import { Photo, Profile } from "../modules/profile";
 import { PaginatedResult } from "../modules/pagination";
+import { UserActivity } from "../modules/userActivity";
 
 const sleep = async (delay: number) => {
   return await new Promise((resolve) => setTimeout(resolve, delay));
@@ -118,7 +119,10 @@ export const Profiles = {
 
   listFollowings: (username: string, predicate: string) =>
     requests.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
-
+  
+  listActivities: (username: string, predicate: string) =>
+    requests.get<UserActivity[]>(`/profiles/${username}/activities?predicate=${predicate}`),
+   
   uploadPhoto: (file: Blob) => {
     const formData = new FormData();
     formData.append("File", file);
