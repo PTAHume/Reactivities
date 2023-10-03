@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { lazily } from "react-lazily";
 
-const { ValidationErrors } = lazily(() => import("./ValidationErrors"));
+const { ValidationErrors } = lazily(() => import("./ValidationErrors.tsx"));
 
 export const TestErrors = () => {
   const baseUrl = "http://localhost:5000/api/";

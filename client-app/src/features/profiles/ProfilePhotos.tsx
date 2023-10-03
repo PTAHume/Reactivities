@@ -6,7 +6,7 @@ import { SyntheticEvent, useState } from "react";
 import { lazily } from "react-lazily";
 
 const { PhotoUploadWidget } = lazily(
-  () => import("../../app/common/imageUpload/PhotoUploadWidget"),
+  () => import("../../app/common/imageUpload/PhotoUploadWidget.tsx"),
 );
 
 export const ProfilePhotos = observer(({ profile }: { profile: Profile }) => {

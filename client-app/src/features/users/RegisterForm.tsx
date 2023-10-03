@@ -7,7 +7,9 @@ import { UserFormValues } from "../../app/modules/user";
 import * as Yup from "yup";
 import { lazily } from "react-lazily";
 
-const { ValidationErrors } = lazily(() => import("../errors/ValidationErrors"));
+const { ValidationErrors } = lazily(
+  () => import("../errors/ValidationErrors.tsx"),
+);
 
 export const RegisterForm = observer(() => {
   const { userStore } = useStore();

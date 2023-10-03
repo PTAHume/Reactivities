@@ -4,9 +4,9 @@ import { observer } from "mobx-react-lite";
 import { lazily } from "react-lazily";
 import { useStore } from "../../app/api/stores/store";
 
-const { ProfileAbout } = lazily(() => import("./ProfileAbout"));
-const { ProfilePhotos } = lazily(() => import("./ProfilePhotos"));
-const { ProfileFollowings } = lazily(() => import("./ProfileFollowings"));
+const { ProfileAbout } = lazily(() => import("./ProfileAbout.tsx"));
+const { ProfilePhotos } = lazily(() => import("./ProfilePhotos.tsx"));
+const { ProfileFollowings } = lazily(() => import("./ProfileFollowings.tsx"));
 
 export const ProfileContent = observer(({ profile }: { profile: Profile }) => {
   const { profileStore } = useStore();

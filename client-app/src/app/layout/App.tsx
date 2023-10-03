@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { ModalContainer } from "../common/modals/ModalContainer";
 import { lazily } from "react-lazily";
 
-const { LoadingComponent } = lazily(() => import("./LoadingComponent"));
+const { LoadingComponent } = lazily(() => import("./LoadingComponent.tsx"));
 
 function App() {
   const location = useLocation();

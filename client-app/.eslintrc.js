@@ -41,6 +41,7 @@ module.exports = {
         '@typescript-eslint/no-invalid-void-type': 'off',
         '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/unbound-method': 'off',
         "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
         "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
     },

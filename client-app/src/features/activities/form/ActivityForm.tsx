@@ -15,7 +15,7 @@ import { v4 as uuid } from "uuid";
 import { lazily } from "react-lazily";
 
 const { LoadingComponent } = lazily(
-  () => import("../../../app/layout/LoadingComponent"),
+  () => import("../../../app/layout/LoadingComponent.tsx"),
 );
 
 export const ActivityForm = observer(() => {

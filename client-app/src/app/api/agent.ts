@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 import { store } from "./stores/store";
 import { Photo, Profile } from "../modules/profile";
+import { PaginatedResult } from "../modules/pagination";
 
 const sleep = async (delay: number) => {
   return await new Promise((resolve) => setTimeout(resolve, delay));
@@ -21,6 +22,15 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   async (response) => {
     await sleep(1000);
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    const pagination = response.headers["pagination"];
+    if (pagination) {
+      response.data = new PaginatedResult(
+        response.data,
+        JSON.parse(pagination),
+      );
+      return response as AxiosResponse<PaginatedResult<unknown>>;
+    }
     return response;
   },
   (error: AxiosError) => {
@@ -66,33 +76,49 @@ axios.interceptors.response.use(
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 const requests = {
-  get: <T>(url: string) => axios.get<T>(url).then(responseBody),
   post: <T>(url: string, body: {}) =>
     axios.post<T>(url, body).then(responseBody),
+
+  get: <T>(url: string) => axios.get<T>(url).then(responseBody),
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
   delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 };
 
 const Activities = {
-  list: () => requests.get<Activity[]>("/activities"),
-  details: (id: string) => requests.get<Activity>(`/activities/${id}`),
+  list: (params: URLSearchParams) =>
+    axios
+      .get<PaginatedResult<Activity[]>>("/activities", { params })
+      .then(responseBody),
+
   create: (activity: ActivityFormValues) =>
     requests.post<void>("/activities", activity),
+
   update: (activity: ActivityFormValues) =>
     requests.put<void>(`/activities/${activity.id}`, activity),
+
+  details: (id: string) => requests.get<Activity>(`/activities/${id}`),
   delete: (id: string) => requests.delete<void>(`/activities/${id}`),
   attend: (id: string) => requests.post<void>(`/activities/${id}/attend`, {}),
 };
 
 const Account = {
-  current: () => requests.get<User>("/account"),
-  login: (user: UserFormValues) => requests.post<User>("/account/login", user),
   register: (user: UserFormValues) =>
     requests.post<User>("/account/register", user),
+
+  current: () => requests.get<User>("/account"),
+  login: (user: UserFormValues) => requests.post<User>("/account/login", user),
 };
 
 export const Profiles = {
-  get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
+  updateProfile: (profile: Partial<Profile>) =>
+    requests.put(`/profiles`, profile),
+
+  updateFollowing: (username: string) =>
+    requests.post(`/follow/${username}`, {}),
+
+  listFollowings: (username: string, predicate: string) =>
+    requests.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
+
   uploadPhoto: (file: Blob) => {
     const formData = new FormData();
     formData.append("File", file);
@@ -100,14 +126,10 @@ export const Profiles = {
       headers: { "Content-Type": "multipart/form-data" },
     });
   },
+
+  get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
   setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
   deletePhoto: (id: string) => requests.delete(`/photos/${id}`),
-  updateProfile: (profile: Partial<Profile>) =>
-    requests.put(`/profiles`, profile),
-  updateFollowing: (username: string) =>
-    requests.post(`/follow/${username}`, {}),
-  listFollowings: (username: string, predicate: string) =>
-    requests.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
 };
 
 export const agent = {

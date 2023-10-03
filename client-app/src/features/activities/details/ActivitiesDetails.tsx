@@ -10,7 +10,7 @@ import { ActivityDetailedChat } from "./ActivityDetailedChat";
 import { lazily } from "react-lazily";
 
 const { LoadingComponent } = lazily(
-  () => import("../../../app/layout/LoadingComponent"),
+  () => import("../../../app/layout/LoadingComponent.tsx"),
 );
 
 export const ActivityDetails = observer(() => {

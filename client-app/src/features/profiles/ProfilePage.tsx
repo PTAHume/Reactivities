@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { lazily } from "react-lazily";
 
 const { LoadingComponent } = lazily(
-  () => import("../../app/layout/LoadingComponent"),
+  () => import("../../app/layout/LoadingComponent.tsx"),
 );
 
 export const ProfilePage = observer(() => {

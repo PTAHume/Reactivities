@@ -4,8 +4,8 @@ import { useStore } from "../../app/api/stores/store";
 import { observer } from "mobx-react-lite";
 import { lazily } from "react-lazily";
 
-const { LoginForm } = lazily(() => import("../users/LoginForm"));
-const { RegisterForm } = lazily(() => import("../users/RegisterForm"));
+const { LoginForm } = lazily(() => import("../users/LoginForm.tsx"));
+const { RegisterForm } = lazily(() => import("../users/RegisterForm.tsx"));
 
 export const HomePage = observer(() => {
   const { userStore, modalStore } = useStore();
