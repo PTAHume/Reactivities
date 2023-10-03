@@ -1,17 +1,17 @@
-import { Grid } from 'semantic-ui-react';
-import { ActivityList } from './ActivityList';
-import { useStore } from '../../../app/api/stores/store';
-import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
-import { ActivityFilters } from './ActivityFilters';
-import { lazily } from 'react-lazily';
-import { PagingParams } from '../../../app/modules/pagination.ts';
-import InfiniteScroll from 'react-infinite-scroller';
+import { Grid } from "semantic-ui-react";
+import { ActivityList } from "./ActivityList";
+import { useStore } from "../../../app/api/stores/store";
+import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
+import { ActivityFilters } from "./ActivityFilters";
+import { lazily } from "react-lazily";
+import { PagingParams } from "../../../app/modules/pagination.ts";
+import InfiniteScroll from "react-infinite-scroller";
 
 const { ActivityListItemPlaceholder } = lazily(
-  () => import('./ActivityListItemPlaceHolder.tsx'),
+  () => import("./ActivityListItemPlaceHolder.tsx"),
 );
-const { Loader } = lazily(() => import('semantic-ui-react'));
+const { Loader } = lazily(() => import("semantic-ui-react"));
 
 export const ActivityDashboard = observer(() => {
   const { activityStore } = useStore();
