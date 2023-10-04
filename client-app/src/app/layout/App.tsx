@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Container } from "semantic-ui-react";
 import { NavBar } from "./NavBar";
 import { observer } from "mobx-react-lite";

@@ -1,4 +1,6 @@
 module.exports = {
+    root: true,
+    env: { browser: true, es2020: true },
     extends: [
         'eslint:recommended',
         'plugin:react/recommended',
@@ -28,6 +30,9 @@ module.exports = {
         project: ['./tsconfig.json', './tsconfig.node.json'],
         tsconfigRootDir: __dirname,
     },
+    ignorePatterns: ['dist', '.eslintrc.cjs'],
+    parser: '@typescript-eslint/parser',
+    plugins: ['react-refresh'],
     rules: {
         'import/named': 0,
         '@typescript-eslint/no-non-null-assertion': 'off',
@@ -42,8 +47,12 @@ module.exports = {
         '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/unbound-method': 'off',
-        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-        "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        'react-refresh/only-export-components': [
+            'warn',
+            { allowConstantExport: true },
+        ],
     },
     overrides: [
         {
@@ -62,4 +71,4 @@ module.exports = {
             },
         },
     ]
-};
+}

@@ -19,9 +19,6 @@ const { NotFound } = lazily(() => import("../../features/errors/NotFound.tsx"));
 const { ServerError } = lazily(
   () => import("../../features/errors/ServerError.tsx"),
 );
-const { LoginForm } = lazily(
-  () => import("../../features/users/LoginForm.tsx"),
-);
 const { ProfilePage } = lazily(
   () => import("../../features/profiles/ProfilePage.tsx"),
 );
