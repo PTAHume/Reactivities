@@ -1,0 +1,1 @@
+import{aW as i}from"./index-0327f46b.js";var c=Object.create,a=function(){function t(){}return function(e){if(!i(e))return{};if(c)return c(e);t.prototype=e;var n=new t;return t.prototype=void 0,n}}();const u=a;function f(t,e){var n=-1,r=t.length;for(e||(e=Array(r));++n<r;)e[n]=t[n];return e}export{u as b,f as c};

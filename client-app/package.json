@@ -66,6 +66,7 @@
     ]
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.10",
     "@types/hoist-non-react-statics": "^3.3.2",
     "@types/react": "^18.2.24",
     "@types/react-datepicker": "^4.15.1",
