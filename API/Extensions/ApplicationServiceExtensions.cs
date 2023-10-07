@@ -64,6 +64,7 @@ public static class ApplicationServiceExtensions
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
+                .WithExposedHeaders("WWW-authenticate", "Pagination")
                 .WithOrigins("http://localhost:3000");
             });
         });
