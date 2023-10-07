@@ -25,7 +25,7 @@ app.UseCsp(opt => opt
     .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com"))
     .FormActions(s => s.Self())
     .FrameAncestors(s => s.Self())
-    .ImageSources(s => s.Self().CustomSources("blob", "https://res.cloudinary.com"))
+    .ImageSources(s => s.Self().CustomSources("blob", "data", "https://res.cloudinary.com"))
     .ScriptSources(s => s.Self())
 );
 

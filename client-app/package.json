@@ -42,7 +42,7 @@
     "start": "vite",
     "dev": "vite --port 3000 --host=localhost",
     "lint": "eslint . --ext .ts,.tsx",
-    "buildToPath": "BUILD_PATH='../API/wwwroot' react-scripts build",
+    "buildToPath": "set INLINE_RUNTIME_CHUNK=false && BUILD_PATH='../API/wwwroot' react-scripts build",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "format": "prettier --write ./src"
