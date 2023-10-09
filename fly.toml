@@ -8,6 +8,7 @@ primary_region = "lhr"
   ASPNETCORE_URLS="http://+:8080"
   Cloudinary__CloudName="dpb4uguv6"
   Cloudinary__ApiKey="475982561961457"
+  Ethereal__EMail="mireya25@ethereal.email"
 
 [http_service]
   internal_port = 8080

@@ -3,6 +3,7 @@ import { User, UserFormValues } from "../../modules/user";
 import { agent } from "../agent";
 import { store } from "./store";
 import { router } from "../../router/Routes";
+import { isAxiosError } from "axios";
 
 export default class UserStore {
   user: User | null = null;
@@ -35,14 +36,15 @@ export default class UserStore {
   };
 
   register = async (credentials: UserFormValues) => {
-    const user = await agent.Account.register(credentials);
-    store.commonStore.setToken(user.token);
-    this.startRefreshTokenTimer(user);
-    runInAction(() => {
-      this.user = user;
-    });
-    router.navigate("/activities");
-    store.modalStore.closeModal();
+    try {
+      await agent.Account.register(credentials);
+      router.navigate(`/account/registerSuccess?email=${credentials.email}`);
+      store.modalStore.closeModal();
+    } catch (error: unknown) {
+      if (isAxiosError(error) && error?.response?.status === 400) throw error;
+      store.modalStore.closeModal();
+      console.log(500);
+    }
   };
 
   getUser = async () => {
@@ -79,7 +81,7 @@ export default class UserStore {
   private startRefreshTokenTimer(user: User) {
     const jwtToken = JSON.parse(atob(user.token.split(".")[1]));
     const expires = new Date(jwtToken.exp * 1000);
-    const timeout = expires.getTime() - Date.now() - (60 * 1000);
+    const timeout = expires.getTime() - Date.now() - 60 * 1000;
     this.refreshTokenTimeout = Number(setTimeout(this.refreshToken, timeout));
     console.log({ refreshTimeout: this.refreshTokenTimeout });
   }

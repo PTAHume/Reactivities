@@ -1,0 +1,1 @@
+import{D as r}from"./index-4df27b20.js";import{M as t}from"./Message-c9b4e447.js";const o=({errors:s})=>r.jsx(t,{error:!0,children:s&&r.jsx(t.List,{children:s.map(e=>r.jsx(t.Item,{children:e},e))})});export{o as ValidationErrors};

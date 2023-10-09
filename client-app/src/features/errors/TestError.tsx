@@ -51,30 +51,45 @@ export const TestErrors = () => {
         <Button.Group widths="7">
           <Button onClick={handleNotFound} content="Not Found" basic primary />
           <Button
-            onClick={handleBadRequest}
+            onClick={() => {
+              handleBadRequest();
+            }}
             content="Bad Request"
             basic
             primary
           />
           <Button
-            onClick={handleValidationError}
+            onClick={() => {
+              handleValidationError();
+            }}
             content="Validation Error"
             basic
             primary
           />
           <Button
-            onClick={handleServerError}
+            onClick={() => {
+              handleServerError();
+            }}
             content="Server Error"
             basic
             primary
           />
           <Button
-            onClick={handleUnauthorised}
+            onClick={() => {
+              handleUnauthorised();
+            }}
             content="Unauthorised"
             basic
             primary
           />
-          <Button onClick={handleBadGuid} content="Bad Guid" basic primary />
+          <Button
+            onClick={() => {
+              handleBadGuid();
+            }}
+            content="Bad Guid"
+            basic
+            primary
+          />
         </Button.Group>
       </Segment>
       {error && <ValidationErrors errors={error} />}

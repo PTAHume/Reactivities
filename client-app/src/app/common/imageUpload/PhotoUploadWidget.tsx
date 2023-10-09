@@ -57,7 +57,9 @@ export const PhotoUploadWidget = ({
             <Button.Group width={2}>
               <Button
                 loading={loading}
-                onClick={onCrop}
+                onClick={() => {
+                  onCrop;
+                }}
                 positive
                 icon="check"
               />

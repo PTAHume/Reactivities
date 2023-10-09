@@ -22,6 +22,12 @@ const { ServerError } = lazily(
 const { ProfilePage } = lazily(
   () => import("../../features/profiles/ProfilePage.tsx"),
 );
+const { RegisterSuccess } = lazily(
+  () => import("../../features/users/RegisterSuccess.tsx"),
+);
+const { ConfirmEmail } = lazily(
+  () => import("../../features/users/ConfirmEmail.tsx"),
+);
 
 export const routes: RouteObject[] = [
   {
@@ -64,6 +70,14 @@ export const routes: RouteObject[] = [
       {
         path: "/server-error",
         element: <ServerError />,
+      },
+      {
+        path: "/account/registerSuccess",
+        element: <RegisterSuccess />,
+      },
+      {
+        path: "/account/verifyEmail",
+        element: <ConfirmEmail />,
       },
       {
         path: "*",

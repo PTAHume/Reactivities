@@ -4,6 +4,7 @@ using Domain;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
 
@@ -19,8 +20,12 @@ public static class IdentityServiceExtensions
         {
             opt.User.RequireUniqueEmail = true;
             opt.User.AllowedUserNameCharacters = string.Empty;
+            opt.SignIn.RequireConfirmedEmail = true;
         })
-        .AddEntityFrameworkStores<DataContext>();
+        .AddEntityFrameworkStores<DataContext>()
+        .AddSignInManager<SignInManager<AppUser>>()
+        .AddDefaultTokenProviders();
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(opt =>
         {
