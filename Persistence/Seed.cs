@@ -16,16 +16,19 @@ public class Seed
                     DisplayName= "Test User 1",
                     UserName="TestUser1",
                     Email="test@user1.com",
+                    EmailConfirmed = true
                 },
                 new (){
                     DisplayName= "Test User 2",
                     UserName="TestUser2",
                     Email="test@user2.com",
+                    EmailConfirmed = true
                 },
                 new (){
                     DisplayName= "Test User 3",
                     UserName="TestUser3",
                     Email="test@user3.com",
+                    EmailConfirmed = true
                 }
             };
 
